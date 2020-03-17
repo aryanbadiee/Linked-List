@@ -22,6 +22,7 @@ struct Cell {
     */
     int value;
     struct Cell *next;
+    struct Cell *before;
 };
 
 struct LinkedList create_list() {
@@ -44,6 +45,7 @@ struct Cell * __new_cell(int value) {
     cell = malloc(sizeof(struct Cell));
     cell->value = value;
     cell->next = NULL;
+    cell->before = NULL;
 
     return cell;
 }
@@ -56,8 +58,12 @@ bool append(struct LinkedList *linked_list, int value) {
         linked_list->first = cell;  // point to first cell
         linked_list->last = cell;
     }else {
-        linked_list->last->next = cell;  // connect to next cell in linked list 
+        linked_list->last->next = cell;  // old last cell connects to next cell in linked list
+        cell->before = linked_list->last;  // new cell connects to before cell in linked list
         linked_list->last = cell;  // point to last cell
+
+        linked_list->last->next =  linked_list->first;  // 'next' of last cell point to first cell
+        linked_list->first->before = linked_list->last;  // 'before' of first cell point to last cell
     }
 
     return True;
@@ -67,13 +73,22 @@ struct Cell * __next_cell(struct LinkedList *linked_list, int cell_index) {
     /*
         this structure is private don't use it out of this file
     */
+    if(cell_index >= lenght(linked_list)) {  // if cell_index over than count of cells, we pass 'NULL'
+        return NULL;
+    }
+
     struct Cell *cell = linked_list->first;
     int i = 0;
+    int loop = 0;
     while(i < cell_index) {
-        if(cell != NULL){
+        if(cell != linked_list->first){
             cell = cell->next;
         }else {
-            break;
+            loop++;
+            if(loop > 1) {
+                return NULL;
+            }
+            cell = cell->next;
         }
         i++;
     }
@@ -97,13 +112,20 @@ void free_mem(struct LinkedList *linked_list) {
 
     int count = lenght(linked_list);
     int i = 0;
-    while(i < count) {
-        if(cell != NULL){
+    int loop = 0;
+    while(i < count + 100) {
+        if(cell != linked_list->first){
             void *keep = cell;
             cell = cell->next;
             free(keep);
         }else{
-            break;
+            loop++;
+            if(loop > 1) {
+                break;
+            }
+            void *keep = cell;
+            cell = cell->next;
+            free(keep);
         }
         i++;
     }

@@ -17,6 +17,6 @@ int main() {
     printf("%i\n", lenght(&linked_list));  // count of cells
 
     free_mem(&linked_list);  // free memory
-    
+
     getch();
 }
