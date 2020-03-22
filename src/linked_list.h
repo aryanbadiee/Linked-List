@@ -107,6 +107,29 @@ int find_with_index(struct LinkedList *linked_list, int cell_index) {
     return value;
 }
 
+int find_one(struct LinkedList *linked_list, int value) {
+    /*
+    try to find first cell with value and return index of the cell.
+    */
+    int length_of_linked_list = lenght(linked_list);
+    struct Cell *cell = linked_list->first;
+    int index;
+    do{
+        if(cell->value == value)
+            return index;  // return index of cell that we want.
+        index++;
+        cell = cell->next;
+    }while(index < length_of_linked_list);
+
+    return -1;  // not found!
+}
+
+// int find_all() {
+//     /*
+//     try to find all cells with value and return indexes of the cells.
+//     */
+// }
+
 void free_mem(struct LinkedList *linked_list) {
     struct Cell *cell = linked_list->first;
 

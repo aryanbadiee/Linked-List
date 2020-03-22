@@ -11,8 +11,16 @@ int main() {
         append(&linked_list, i);
     }
 
-    int value = find_with_index(&linked_list, 3);  // find element by index 
+    int value = find_with_index(&linked_list, 3);  // find value by index 
     printf("%i\n", value);
+
+    int index = find_one(&linked_list, 1000000000);  // find index by value (just first cell)
+    if(index != -1){
+        printf("%i\n", index);
+    }else{
+        printf("Not Found!\n");
+    }
+    
 
     printf("%i\n", lenght(&linked_list));  // count of cells
 
