@@ -1,4 +1,5 @@
 // Linked List Created by Aryan Badiee
+// https://www.github.com/aryanbadiee
 
 #define True 1
 #define False 0
@@ -109,14 +110,14 @@ int find_with_index(struct LinkedList *linked_list, int cell_index) {
 
 int find_one(struct LinkedList *linked_list, int value) {
     /*
-    try to find first cell with value and return index of the cell.
+    find first cell with value and return index of the cell
     */
     int length_of_linked_list = lenght(linked_list);
     struct Cell *cell = linked_list->first;
-    int index;
+    int index;  // index = 0
     do{
         if(cell->value == value)
-            return index;  // return index of cell that we want.
+            return index;  // return index of cell that we want ( 'if' with python format:)) )
         index++;
         cell = cell->next;
     }while(index < length_of_linked_list);
@@ -124,11 +125,28 @@ int find_one(struct LinkedList *linked_list, int value) {
     return -1;  // not found!
 }
 
-// int find_all() {
-//     /*
-//     try to find all cells with value and return indexes of the cells.
-//     */
-// }
+int * find_all(struct LinkedList *linked_list, int value) {
+    /*
+    find all cells with value and return array of indexes that at the end of it, there is -1 for end of array
+    */
+    int length_of_linked_list = lenght(linked_list);
+    struct Cell *cell = linked_list->first;
+    int *array_of_indexes = malloc(sizeof(int));  // allocate 4 bytes at the first from memory
+    int index = 0, count = 0;  // index for index of cell and count for what number of cells is equal to the value?
+    *array_of_indexes = -1;  // if not found any cells
+    do{
+        if(cell->value == value){
+            array_of_indexes[count] = index;
+            count++;
+            array_of_indexes = realloc(array_of_indexes, sizeof(int) * (count + 1));  // realloc size of array
+            array_of_indexes[count] = -1;  // determining the end of the array
+        }
+        index++;
+        cell = cell->next;
+    }while(index < length_of_linked_list);
+
+    return array_of_indexes;
+}
 
 void free_mem(struct LinkedList *linked_list) {
     struct Cell *cell = linked_list->first;
@@ -157,3 +175,5 @@ void free_mem(struct LinkedList *linked_list) {
     linked_list->last = NULL;
     linked_list->count = 0;
 }
+
+typedef struct LinkedList List;  // defining 'List' type

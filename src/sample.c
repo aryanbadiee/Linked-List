@@ -4,27 +4,39 @@
 
 
 int main() {
-    struct LinkedList linked_list = create_list();  // create new linked list
+    List list = create_list();  // create new linked list
 
     // append items:
     for(int i=0;i < 120000000;i++){
-        append(&linked_list, i);
+        append(&list, i % 10000000);  // value = 0 until 9999999
     }
 
-    int value = find_with_index(&linked_list, 3);  // find value by index 
+    // find value by index:
+    int value = find_with_index(&list, 3);  
     printf("%i\n", value);
 
-    int index = find_one(&linked_list, 1000000000);  // find index by value (just first cell)
+    // find index by value (just first cell):
+    int index = find_one(&list, 1000000);
     if(index != -1){
         printf("%i\n", index);
     }else{
         printf("Not Found!\n");
     }
+
+    // find indexes by value (all cells that match with value):
+    int *indexes = find_all(&list, 15);
+    int i = 0;
+    while(indexes[i] != -1){  // end of indexes, there is -1 that means at end of array
+        printf("%i, ", indexes[i]);
+        i++;
+    }
+    printf("\n");
     
+    // count of cells:
+    printf("%i\n", lenght(&list));  
 
-    printf("%i\n", lenght(&linked_list));  // count of cells
+    // free memory:
+    free_mem(&list);  
 
-    free_mem(&linked_list);  // free memory
-
-    getch();
+    getch();  // wait here!
 }
