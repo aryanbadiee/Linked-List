@@ -17,8 +17,6 @@ struct LinkedList {
     int count;
 };
 
-// to force compiler to use 1 byte packaging (optimize structure, but some compilers optimize automatically):
-#pragma pack(1)
 struct Cell {
     /*
         this structure is private don't use it out of this file
@@ -26,7 +24,7 @@ struct Cell {
     int value;
     struct Cell *next;
     struct Cell *before;
-};
+} __attribute__((packed));  // optimize structure, but some compilers optimize automatically
 
 struct LinkedList create_list() {
     struct LinkedList linked_list;
