@@ -17,6 +17,8 @@ struct LinkedList {
     int count;
 };
 
+// to force compiler to use 1 byte packaging (optimize structure, but some compilers optimize automatically):
+#pragma pack(1)
 struct Cell {
     /*
         this structure is private don't use it out of this file
@@ -146,6 +148,18 @@ int * find_all(struct LinkedList *linked_list, int value) {
     }while(index < length_of_linked_list);
 
     return array_of_indexes;
+}
+
+bool update_with_index(struct LinkedList *linked_list, int cell_index, int new_value) {
+    // code
+}
+
+bool update_one(struct LinkedList *linked_list, int old_value, int new_value) {
+    // code
+}
+
+bool update_all(struct LinkedList *linked_list, int old_value, int new_value) {
+    // code
 }
 
 void free_mem(struct LinkedList *linked_list) {

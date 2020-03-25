@@ -3,7 +3,7 @@
 #include "linked_list.h"
 
 
-int main() {
+int main(void) {
     List list = create_list();  // create new linked list
 
     // append items:
@@ -39,4 +39,5 @@ int main() {
     free_mem(&list);  
 
     getch();  // wait here!
+    return 0;
 }
