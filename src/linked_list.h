@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct LinkedList {
+struct CLinkedList {
     /*
         this structure is private don't use it out of this file
     */
@@ -26,15 +26,15 @@ struct Cell {
     struct Cell *before;
 } __attribute__((packed));  // optimize structure, but some compilers optimize automatically(remove padding inside from structure)
 
-struct LinkedList create_list() {
-    struct LinkedList linked_list;
+struct CLinkedList create_list() {
+    struct CLinkedList linked_list;
     linked_list.first = NULL;
     linked_list.last = NULL;
     linked_list.count = 0;
     return linked_list;
 }
 
-int lenght(struct LinkedList *linked_list) {
+int lenght(struct CLinkedList *linked_list) {
     return linked_list->count;
 }
 
@@ -51,7 +51,7 @@ struct Cell * __new_cell(int value) {
     return cell;
 }
 
-bool append(struct LinkedList *linked_list, int value) {
+bool append(struct CLinkedList *linked_list, int value) {
     struct Cell *cell = __new_cell(value);  // every time create new cell with new address 
     linked_list->count++;  // increase count of cells
 
@@ -70,7 +70,7 @@ bool append(struct LinkedList *linked_list, int value) {
     return True;
 }
 
-struct Cell * __next_cell(struct LinkedList *linked_list, int cell_index) {
+struct Cell * __next_cell(struct CLinkedList *linked_list, int cell_index) {
     /*
         this structure is private don't use it out of this file
     */
@@ -97,7 +97,7 @@ struct Cell * __next_cell(struct LinkedList *linked_list, int cell_index) {
     return cell;
 }
 
-int find_with_index(struct LinkedList *linked_list, int cell_index) {
+int find_with_index(struct CLinkedList *linked_list, int cell_index) {
     struct Cell *cell = __next_cell(linked_list, cell_index);
     if(cell == NULL) {
         printf("Not Found This Cell! - index error");
@@ -108,7 +108,7 @@ int find_with_index(struct LinkedList *linked_list, int cell_index) {
     return value;
 }
 
-int find_one(struct LinkedList *linked_list, int value) {
+int find_one(struct CLinkedList *linked_list, int value) {
     /*
     find first cell with value and return index of the cell
     */
@@ -125,7 +125,7 @@ int find_one(struct LinkedList *linked_list, int value) {
     return -1;  // not found!
 }
 
-int * find_all(struct LinkedList *linked_list, int value) {
+int * find_all(struct CLinkedList *linked_list, int value) {
     /*
     find all cells with value and return array of indexes that at the end of it, there is -1 for end of array
     */
@@ -148,7 +148,7 @@ int * find_all(struct LinkedList *linked_list, int value) {
     return array_of_indexes;
 }
 
-bool update_with_index(struct LinkedList *linked_list, int cell_index, int new_value) {
+bool update_with_index(struct CLinkedList *linked_list, int cell_index, int new_value) {
     /*
     update value of cell with index of cell and new value
     */
@@ -160,15 +160,15 @@ bool update_with_index(struct LinkedList *linked_list, int cell_index, int new_v
     return True;
 }
 
-bool update_one(struct LinkedList *linked_list, int old_value, int new_value) {
+bool update_one(struct CLinkedList *linked_list, int old_value, int new_value) {
     // code
 }
 
-bool update_all(struct LinkedList *linked_list, int old_value, int new_value) {
+bool update_all(struct CLinkedList *linked_list, int old_value, int new_value) {
     // code
 }
 
-void free_mem(struct LinkedList *linked_list) {
+void free_mem(struct CLinkedList *linked_list) {
     struct Cell *cell = linked_list->first;
 
     int count = lenght(linked_list);
@@ -196,4 +196,4 @@ void free_mem(struct LinkedList *linked_list) {
     linked_list->count = 0;
 }
 
-typedef struct LinkedList List;  // defining 'List' type
+typedef struct CLinkedList CList;  // defining 'List' type
