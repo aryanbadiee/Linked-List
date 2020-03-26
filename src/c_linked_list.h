@@ -74,7 +74,7 @@ struct Cell * __next_cell(struct CLinkedList *linked_list, int cell_index) {
     /*
         this structure is private don't use it out of this file
     */
-    if(cell_index >= lenght(linked_list) || cell_index < 0) {  // if cell_index over than count of cells, we pass 'NULL'
+    if(cell_index >= lenght(linked_list) || cell_index < 0) {  // if cell_index over than count of cells or lower than zero, we pass 'NULL'
         return NULL;
     }
 
@@ -127,7 +127,7 @@ int find_one(struct CLinkedList *linked_list, int value) {
 
 int * find_all(struct CLinkedList *linked_list, int value) {
     /*
-    find all cells with value and return array of indexes that at the end of it, there is -1 for end of array
+    find all cells with value and return array of indexes (there is -1 for end of array)
     */
     int length_of_linked_list = lenght(linked_list);
     struct Cell *cell = linked_list->first;
@@ -162,7 +162,7 @@ bool update_with_index(struct CLinkedList *linked_list, int cell_index, int new_
 
 int update_one(struct CLinkedList *linked_list, int old_value, int new_value) {
     /*
-    update value of cell with old value of cell and new value (just effects the first match)
+    update value of cell with new value (just effects on the first match)
     */
     struct Cell *cell = linked_list->first;
     int lenght_of_linked_list = lenght(linked_list);
@@ -179,8 +179,28 @@ int update_one(struct CLinkedList *linked_list, int old_value, int new_value) {
     return -1;  // not found any cell with this old_value
 }
 
-bool update_all(struct CLinkedList *linked_list, int old_value, int new_value) {
-    // code
+int * update_all(struct CLinkedList *linked_list, int old_value, int new_value) {
+    /*
+    update value of cells with new value (effects on all matches) and return array of indexes (there is -1 for end of array)
+    */
+    struct Cell *cell = linked_list->first;
+    int lenght_of_linked_list = lenght(linked_list);
+    int index = 0 , count = 0;
+    int *indexes = malloc(sizeof(int));
+    *indexes = -1;
+    do{
+        if(cell->value == old_value){
+            cell->value = new_value;  // set new value to cell 
+            indexes[count] = index;
+            count++;
+            indexes = realloc(indexes, sizeof(int) * (count + 1));  // reallocation new space for indexes
+            indexes[count] = -1;  // set -1 and the end of arrya of indexes
+        }
+        index++;
+        cell = cell->next;
+    }while(index < lenght_of_linked_list);
+
+    return indexes;
 }
 
 void free_mem(struct CLinkedList *linked_list) {

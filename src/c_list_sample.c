@@ -46,7 +46,17 @@ int main(void) {
         printf("updated and index of cell is: %i\n", index);
     else
         printf("didn't update!\n");
-    
+
+    // update value of cells with old value(as much as possible):
+    indexes = update_all(&clist, 30, 3);  // old_value = 30 , new_value = 3
+    i = 0;
+    printf("index of cells that was updated: ");
+    while(indexes[i] != -1) {
+        printf("%i, ", indexes[i]);
+        i++;
+    }
+    printf("\n");
+
     // count of cells:
     printf("%i\n", lenght(&clist));  
 
