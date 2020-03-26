@@ -203,6 +203,21 @@ int * update_all(struct CLinkedList *linked_list, int old_value, int new_value) 
     return indexes;
 }
 
+bool remove_with_index(struct CLinkedList *linked_list, int cell_index) {
+    /*
+    remove cell with index and return True(1), if not return False(0) 
+    */
+    struct Cell *cell = __next_cell(linked_list, cell_index);
+    if(cell == NULL) {
+        return False;
+    }
+    
+    cell->next->before = cell->before;  // next cell's before point to previous cell!
+    cell->before->next = cell->next;  // previous cell's next point to next cell!
+    free(cell);  // clean cell from memory
+    return True;
+}
+
 void free_mem(struct CLinkedList *linked_list) {
     struct Cell *cell = linked_list->first;
 

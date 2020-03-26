@@ -57,6 +57,14 @@ int main(void) {
     }
     printf("\n");
 
+    // remove a cell with index:
+    result = remove_with_index(&clist, 9999);  // index = 9999
+    if(result)
+        printf("removed.\n");
+        
+    else
+        printf("not removed!\n");
+
     // count of cells:
     printf("%i\n", lenght(&clist));  
 
