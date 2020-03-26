@@ -31,6 +31,15 @@ int main(void) {
         i++;
     }
     printf("\n");
+
+    // update value of a cell with index:
+    bool result = update_with_index(&list, 10, 3);  // index = 10 , new_value = 0
+    // top expression return True(1) if the value of cell was changed. if not return False(0)
+    if(result)
+        printf("updated.\n");
+    else
+        printf("didn't update!\n");
+    printf("%i\n", find_with_index(&list, 10));  // show value of cell that updated(or not)
     
     // count of cells:
     printf("%i\n", lenght(&list));  

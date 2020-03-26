@@ -15,7 +15,7 @@ struct LinkedList {
     struct Cell *first;
     struct Cell *last;
     int count;
-};
+}__attribute__((packed));  // optimize structure, but some compilers optimize automatically(remove padding inside from structure)
 
 struct Cell {
     /*
@@ -24,7 +24,7 @@ struct Cell {
     int value;
     struct Cell *next;
     struct Cell *before;
-} __attribute__((packed));  // optimize structure, but some compilers optimize automatically
+} __attribute__((packed));  // optimize structure, but some compilers optimize automatically(remove padding inside from structure)
 
 struct LinkedList create_list() {
     struct LinkedList linked_list;
@@ -149,7 +149,15 @@ int * find_all(struct LinkedList *linked_list, int value) {
 }
 
 bool update_with_index(struct LinkedList *linked_list, int cell_index, int new_value) {
-    // code
+    /*
+    update value of cell with index of cell and new value
+    */
+    struct Cell *cell = __next_cell(linked_list, cell_index);
+    if(!cell) {  // not found any cell with this index
+        return False;
+    }
+    cell->value = new_value;
+    return True;
 }
 
 bool update_one(struct LinkedList *linked_list, int old_value, int new_value) {
