@@ -215,7 +215,7 @@ bool remove_with_index(struct CLinkedList *linked_list, int cell_index) {
     cell->next->before = cell->before;  // next cell's before point to previous cell!
     cell->before->next = cell->next;  // previous cell's next point to next cell!
     free(cell);  // clean cell from memory
-    linked_list->count--;  // decrease one cell
+    linked_list->count--;  // decrease one cell from linked list
 
     return True;
 }
@@ -232,8 +232,8 @@ bool remove_one(struct CLinkedList *linked_list, int value) {
             cell->next->before = cell->before;  // next cell's before point to previous cell!
             cell->before->next = cell->next;  // previous cell's next point to next cell!
             free(cell);  // clean cell from memory
-            linked_list->count--;  // decrease one cell
-            
+            linked_list->count--;  // decrease one cell from linked list
+
             return True;  // return True
         }
         index++;
@@ -247,7 +247,26 @@ int remove_all(struct CLinkedList *linked_list, int value) {
     /*
     remove all cells with their value and return count of removed cells, if didn't find return 0.
     */
+    struct Cell *cell = linked_list->first, *keep;
+    int lenght_of_linked_list = lenght(linked_list);
+    int index = 0 , count = 0;
+    do{
+        if(cell->value == value) {
+            cell->next->before = cell->before;  // next cell's before point to previous cell!
+            cell->before->next = cell->next;  // previous cell's next point to next cell!
+            keep = cell;  // save address of removed cell in other pointer for 'free' in future
+            cell = cell->next;  // next cell
+            free(keep);  // clean cell from memory
+            linked_list->count--;  // decrease one cell from linked list
+            count++;
+            index++;
+            continue;  // next loop
+        }
+        index++;
+        cell = cell->next;
+    }while(index < lenght_of_linked_list);
 
+    return count;  // return count of removed cells.
 }
 
 void free_mem(struct CLinkedList *linked_list) {
