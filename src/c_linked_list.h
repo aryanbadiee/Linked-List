@@ -224,14 +224,30 @@ bool remove_one(struct CLinkedList *linked_list, int value) {
     /*
     remove one cell with its value and return True(1), if didn't find return False(0).
     */
+    struct Cell *cell = linked_list->first;
+    int lenght_of_linked_list = lenght(linked_list);
+    int index;
+    do{
+        if(cell->value == value){
+            cell->next->before = cell->before;  // next cell's before point to previous cell!
+            cell->before->next = cell->next;  // previous cell's next point to next cell!
+            free(cell);  // clean cell from memory
+            linked_list->count--;  // decrease one cell
+            
+            return True;  // return True
+        }
+        index++;
+        cell = cell->next;
+    }while(index < lenght_of_linked_list);
 
+    return False;  // not found any cell with this value
 }
 
 int remove_all(struct CLinkedList *linked_list, int value) {
     /*
     remove all cells with their value and return count of removed cells, if didn't find return 0.
     */
-    
+
 }
 
 void free_mem(struct CLinkedList *linked_list) {
