@@ -203,6 +203,19 @@ int * update_all(struct CLinkedList *linked_list, int old_value, int new_value) 
     return indexes;
 }
 
+void __set_first_and_last(struct CLinkedList *linked_list, struct Cell *cell) {
+    /*
+        this function is private don't use it out of this file
+        setting first and last cell for linked list before clear cell
+        it's just useful for removing functions!!! (don't use in other functions)
+    */
+    if (cell == linked_list->first){
+        linked_list->first = cell->next;
+    }else if (cell == linked_list->last) {
+        linked_list->last = cell->before;
+    }
+}
+
 bool remove_with_index(struct CLinkedList *linked_list, int cell_index) {
     /*
     remove cell with index and return True(1), if not return False(0) 
@@ -214,6 +227,7 @@ bool remove_with_index(struct CLinkedList *linked_list, int cell_index) {
     
     cell->next->before = cell->before;  // next cell's before point to previous cell!
     cell->before->next = cell->next;  // previous cell's next point to next cell!
+    __set_first_and_last(linked_list, cell);  // set first and last cell on linked list before clear cell
     free(cell);  // clean cell from memory
     linked_list->count--;  // decrease one cell from linked list
 
@@ -222,7 +236,7 @@ bool remove_with_index(struct CLinkedList *linked_list, int cell_index) {
 
 bool remove_one(struct CLinkedList *linked_list, int value) {
     /*
-    remove one cell with its value and return True(1), if didn't find return False(0).
+    remove one cell with its value and return True(1), if didn't find return False(0)
     */
     struct Cell *cell = linked_list->first;
     int lenght_of_linked_list = lenght(linked_list);
@@ -231,6 +245,7 @@ bool remove_one(struct CLinkedList *linked_list, int value) {
         if(cell->value == value){
             cell->next->before = cell->before;  // next cell's before point to previous cell!
             cell->before->next = cell->next;  // previous cell's next point to next cell!
+            __set_first_and_last(linked_list, cell);  // set first and last cell on linked list before clear cell
             free(cell);  // clean cell from memory
             linked_list->count--;  // decrease one cell from linked list
 
@@ -245,7 +260,7 @@ bool remove_one(struct CLinkedList *linked_list, int value) {
 
 int remove_all(struct CLinkedList *linked_list, int value) {
     /*
-    remove all cells with their value and return count of removed cells, if didn't find return 0.
+    remove all cells with their value and return count of removed cells, if didn't find return 0
     */
     struct Cell *cell = linked_list->first, *keep;
     int lenght_of_linked_list = lenght(linked_list);
@@ -256,6 +271,7 @@ int remove_all(struct CLinkedList *linked_list, int value) {
             cell->before->next = cell->next;  // previous cell's next point to next cell!
             keep = cell;  // save address of removed cell in other pointer for 'free' in future
             cell = cell->next;  // next cell
+            __set_first_and_last(linked_list, keep);  // set first and last cell on linked list before clear cell
             free(keep);  // clean cell from memory
             linked_list->count--;  // decrease one cell from linked list
             count++;
@@ -266,7 +282,7 @@ int remove_all(struct CLinkedList *linked_list, int value) {
         cell = cell->next;
     }while(index < lenght_of_linked_list);
 
-    return count;  // return count of removed cells.
+    return count;  // return count of removed cells
 }
 
 void free_mem(struct CLinkedList *linked_list) {
