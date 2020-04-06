@@ -12,7 +12,7 @@ int main(void) {
     printf("Attached.\n");
 
     // find value by index:
-    int value = find_with_index(&clist, 3);  
+    int value = find_with_index(&clist, 3);
     printf("find_with_index -> %i\n", value);
 
     // find index by value (just first cell):
@@ -86,6 +86,10 @@ int main(void) {
 
     // count of cells:
     printf("lenght -> %i\n", lenght(&clist));
+
+    // show cells with your desired count (if count=0 function show all cells)
+    result = show(&clist, 1000);
+    // result is boolean variable (True(1) or False(0))
 
     // free memory:
     free_mem(&clist);

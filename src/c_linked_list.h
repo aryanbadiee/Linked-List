@@ -285,6 +285,43 @@ int remove_all(struct CLinkedList *linked_list, int value) {
     return count;  // return count of removed cells
 }
 
+bool show(struct CLinkedList *linked_list, int count){
+    /*
+    this function show value of cells (print in console)
+    'count' -> show how many cells you want! (count=0 means show all cells)
+    */
+    if(count < 0){
+        return False;
+    }else if(count == 0){
+        int lenght_of_linked_list = lenght(linked_list);
+        count = lenght_of_linked_list;
+    }else {
+        int lenght_of_linked_list = lenght(linked_list);
+        if(count > lenght_of_linked_list)
+            count = lenght_of_linked_list;
+    }
+
+    struct Cell *cell = linked_list->first;  // get first cell from linked list
+
+    int index;  // default: index = 0
+    do{
+        printf("%i:%i - ", index, cell->value);
+        index++;
+        cell = cell->next;
+    }while(index < count);
+
+    printf("\n");  // go to new line end of showing
+    return True;  // show cells correctly.
+}
+
+void reverse(struct CLinkedList *linked_list){
+    // do smthg
+}
+
+struct CLinkedList copy(struct CLinkedList *linked_list){
+    // do smthg
+}
+
 void free_mem(struct CLinkedList *linked_list) {
     struct Cell *cell = linked_list->first;
 
