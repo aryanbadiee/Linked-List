@@ -1,3 +1,6 @@
+// Linked List Created by Aryan Badiee
+// https://www.github.com/aryanbadiee
+
 #include <stdio.h>
 #include <conio.h>
 #include "c_linked_list.h"
@@ -95,8 +98,22 @@ int main(void) {
     reverse(&clist);
     printf("reverse -> %i\n", find_with_index(&clist, 0));
 
+    // get a copy from 'list' ('copy' function takes new space from memory, be carful!):
+    CList clist_new = create_list();
+    for(i=0;i < 1000;i++) {
+        append(&clist_new, i);
+    }
+    CList clist_new_copy = copy(&clist_new);  // copy
+    printf("clist_new -> ");
+    show(&clist_new, 0);  // show all cells in 'clist_new'
+    printf("clist_new_copy -> ");
+    show(&clist_new_copy, 0);  // show all cells in 'clist_new_copy'
+    // 'list_new_copy' is same as 'list_new' but in different space
+
     // free memory:
     free_mem(&clist);
+    free_mem(&clist_new);
+    free_mem(&clist_new_copy);
     printf("memory cleared.");
 
     getch();  // wait here!

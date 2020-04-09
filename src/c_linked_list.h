@@ -306,7 +306,7 @@ bool show(struct CLinkedList *linked_list, int count){
 
     struct Cell *cell = linked_list->first;  // get first cell from linked list
 
-    int index;  // default: index = 0
+    int index = 0;
     do{
         printf("%i:%i - ", index, cell->value);
         index++;
@@ -343,8 +343,24 @@ void reverse(struct CLinkedList *linked_list){
 
 }
 
-struct CLinkedList copy(struct CLinkedList *linked_list){
-    // do smthg
+struct CLinkedList copy(struct CLinkedList *linked_list) {
+    /*
+    getting copy from 'linked_list'
+    (be careful! this function takes new space from memory)
+    */
+    int lenght_of_linked_list = lenght(linked_list);
+    struct Cell *cell = linked_list->first;
+    int index = 0;
+    // new linked list:
+    struct CLinkedList new_linked_list = create_list();
+    do{
+        append(&new_linked_list, cell->value);
+
+        index++;
+        cell = cell->next;
+    }while(index < lenght_of_linked_list);
+
+    return new_linked_list;
 }
 
 void free_mem(struct CLinkedList *linked_list) {
@@ -375,4 +391,4 @@ void free_mem(struct CLinkedList *linked_list) {
     linked_list->count = 0;
 }
 
-typedef struct CLinkedList CList;  // defining 'List' type
+typedef struct CLinkedList CList;  // defining 'CList' type
