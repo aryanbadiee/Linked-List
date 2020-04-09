@@ -89,7 +89,11 @@ int main(void) {
 
     // show cells with your desired count (if count=0 function show all cells)
     result = show(&clist, 1000);
-    // result is boolean variable (True(1) or False(0))
+    // 'result' is boolean variable (True(1) or False(0))
+
+    // reverse linked list:
+    reverse(&clist);
+    printf("reverse -> %i\n", find_with_index(&clist, 0));
 
     // free memory:
     free_mem(&clist);

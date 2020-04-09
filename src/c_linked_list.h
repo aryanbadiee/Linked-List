@@ -98,6 +98,9 @@ struct Cell * __next_cell(struct CLinkedList *linked_list, int cell_index) {
 }
 
 int find_with_index(struct CLinkedList *linked_list, int cell_index) {
+    /*
+    find value with index of cell
+    */
     struct Cell *cell = __next_cell(linked_list, cell_index);
     if(cell == NULL) {
         printf("Not Found This Cell! - index error");
@@ -315,7 +318,29 @@ bool show(struct CLinkedList *linked_list, int count){
 }
 
 void reverse(struct CLinkedList *linked_list){
-    // do smthg
+    /*
+    moving all the cells from last to first! (reverse)
+    it's simple, just swap address of 'next cell' with 'before cell' in each cell
+    */
+    int lenght_of_linked_list = lenght(linked_list);
+    struct Cell *cell = linked_list->first;
+    void *keep_address;  // for keeping address in swapping
+    int index = 0;
+    do {
+        // swap 'next' with 'before':
+        keep_address = cell->next;
+        cell->next = cell->before;
+        cell->before = keep_address;
+
+        index++;
+        cell = cell->next;
+    }while(index < lenght_of_linked_list);
+
+    // swap 'first' with 'last' in 'linked_list':
+    keep_address = linked_list->first;
+    linked_list->first = linked_list->last;
+    linked_list->last = keep_address;
+
 }
 
 struct CLinkedList copy(struct CLinkedList *linked_list){
