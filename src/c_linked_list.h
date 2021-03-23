@@ -212,7 +212,7 @@ void __set_first_and_last(struct CLinkedList *linked_list, struct Cell *cell) {
 
 bool remove_with_index(struct CLinkedList *linked_list, int cell_index) {
     /*
-    remove cell with index and return True(1), if not return False(0) 
+    remove cell with index and return True(1). if didn't exist, return False(0) 
     */
     struct Cell *cell = __next_cell(linked_list, cell_index);
     if(cell == NULL) {
@@ -230,7 +230,7 @@ bool remove_with_index(struct CLinkedList *linked_list, int cell_index) {
 
 bool remove_one(struct CLinkedList *linked_list, int value) {
     /*
-    remove one cell with its value and return True(1), if didn't find return False(0)
+    remove one cell with its value and return True(1). if didn't find, return False(0)
     */
     struct Cell *cell = linked_list->first;
     int lenght_of_linked_list = lenght(linked_list);
@@ -254,7 +254,7 @@ bool remove_one(struct CLinkedList *linked_list, int value) {
 
 int remove_all(struct CLinkedList *linked_list, int value) {
     /*
-    remove all cells with their value and return count of removed cells, if didn't find return 0
+    remove all cells with their value and return count of removed cells. if didn't find, return 0
     */
     struct Cell *cell = linked_list->first, *keep;
     int lenght_of_linked_list = lenght(linked_list);
@@ -282,7 +282,7 @@ int remove_all(struct CLinkedList *linked_list, int value) {
 bool show(struct CLinkedList *linked_list, int count){
     /*
     this function show value of cells (print in console)
-    'count' -> show how many cells you want! (count=0 means show all cells)
+    `count` -> show how many cells you want! (count=0 means show all cells)
     */
     if(count < 0){
         return False;
@@ -336,8 +336,8 @@ void reverse(struct CLinkedList *linked_list){
 
 struct CLinkedList copy(struct CLinkedList *linked_list) {
     /*
-    getting copy from 'linked_list'
-    (be careful! this function takes new space from memory)
+    getting copy from `linked_list`
+    (be careful! this function takes new space from memory!)
     */
     int lenght_of_linked_list = lenght(linked_list);
     struct Cell *cell = linked_list->first;
@@ -355,6 +355,9 @@ struct CLinkedList copy(struct CLinkedList *linked_list) {
 }
 
 void free_mem(struct CLinkedList *linked_list) {
+    /*
+    free memory
+    */
     struct Cell *cell = linked_list->first;
 
     int count = lenght(linked_list);
