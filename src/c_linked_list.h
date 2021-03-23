@@ -15,7 +15,7 @@ struct CLinkedList {
     struct Cell *first;
     struct Cell *last;
     int count;
-}__attribute__((packed));  // optimize structure, but some compilers optimize automatically(remove padding inside from structure)
+}__attribute__((packed));  // optimize structure, but some compilers optimize automatically(remove inside padding from structure)
 
 struct Cell {
     /*
@@ -24,7 +24,7 @@ struct Cell {
     int value;
     struct Cell *next;
     struct Cell *before;
-} __attribute__((packed));  // optimize structure, but some compilers optimize automatically(remove padding inside from structure)
+} __attribute__((packed));  // optimize structure, but some compilers optimize automatically(remove inside padding from structure)
 
 struct CLinkedList create_list() {
     struct CLinkedList linked_list;
@@ -43,7 +43,7 @@ struct Cell * __new_cell(int value) {
     /*
         this function is private don't use it out of this file
     */
-    struct Cell *cell = malloc(sizeof(struct Cell));;
+    struct Cell *cell = malloc(sizeof(struct Cell));
     cell->value = value;
     cell->next = NULL;
     cell->before = NULL;
@@ -72,7 +72,7 @@ bool append(struct CLinkedList *linked_list, int value) {
 
 struct Cell * __next_cell(struct CLinkedList *linked_list, int cell_index) {
     /*
-        this structure is private don't use it out of this file
+        this function is private don't use it out of this file
     */
     if(cell_index >= lenght(linked_list) || cell_index < 0) {  // if cell_index over than count of cells or lower than zero, we pass 'NULL'
         return NULL;
@@ -80,17 +80,8 @@ struct Cell * __next_cell(struct CLinkedList *linked_list, int cell_index) {
 
     struct Cell *cell = linked_list->first;
     int i = 0;
-    int loop = 0;
     while(i < cell_index) {
-        if(cell != linked_list->first){
-            cell = cell->next;
-        }else {
-            loop++;
-            if(loop > 1) {
-                return NULL;
-            }
-            cell = cell->next;
-        }
+        cell = cell->next;
         i++;
     }
 
