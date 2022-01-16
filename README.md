@@ -1,6 +1,6 @@
 # Linked-List
 
-a doubly circular linked-list data structure that has easy functions but powerful performance.
+A doubly circular linked-list data structure that has easy functions but powerful performance.
 
 ### Features:
 
@@ -14,5 +14,4 @@ a doubly circular linked-list data structure that has easy functions but powerfu
 * find, remove and update of each cell with index or value!
 * the 'reverse' function, for reversing the linked list simply
 
-just go and read `sample.c` file for learning all things about this project.
-and at final, use and enjoy it :wink:
+Just read `sample.c` file for learning all things about this project and use it :wink:
